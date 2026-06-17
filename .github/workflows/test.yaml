@@ -1,14 +1,14 @@
 name: Test
 
-on: 
- push:
-   branches:
-    - master
-workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
- log_message:
+  log_message:
     runs-on: ubuntu-latest
     steps:
-      - name: log_message
+      - name: Log message
         run: echo "The Workflow is working!"
