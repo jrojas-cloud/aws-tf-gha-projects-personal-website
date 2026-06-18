@@ -50,7 +50,9 @@ jobs:
         working-directory: terraform
 
       - name: Uploading Files to S3 Bucket
+        env:
+         BUCKET: ${{ secrets.BUCKET_NAME }}
         run: |
-          aws s3 cp index.html s3://aws-terraform-personal-website-089a886e/index.html
-          aws s3 cp --recursive images/ s3://aws-terraform-personal-website-089a886e/images/
-          aws s3 cp --recursive styles/ s3://aws-terraform-personal-website-089a886e/styles/
+          aws s3 cp index.html s3://$BUCKET/index.html
+          aws s3 cp --recursive images/ s3://$BUCKET/images/
+          aws s3 cp --recursive styles/ s3://$BUCKET/styles/
