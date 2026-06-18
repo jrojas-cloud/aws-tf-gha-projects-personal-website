@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   Listing_buckets:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestttt
 
     steps:
       - name: Set up AWS Credentials
