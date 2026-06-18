@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write   # Required for OIDC
-  contents: read    # Required for checkout
+  id-token: write
+  contents: read
 
 jobs:
   creating_bucket:
@@ -21,30 +21,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up AWS Credentials (OIDC)
+      - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
 
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v4
 
       - name: Terraform Init
+        working-directory: terraform
         run: terraform init
-        working-directory: terraform
-
-      - name: Terraform Plan
-        env:
-          TF_VAR_bucket_name: ${{ secrets.BUCKET_NAME }}
-        run: terraform plan
-        working-directory: terraform
 
       - name: Terraform Apply
+        working-directory: terraform
         env:
           TF_VAR_bucket_name: ${{ secrets.BUCKET_NAME }}
         run: terraform apply -auto-approve
-        working-directory: terraform
 
       - name: Upload files to S3 bucket
         run: |
