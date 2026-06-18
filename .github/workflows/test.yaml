@@ -3,7 +3,7 @@ name: Listing S3 Buckets
 on:
   push:
     branches:
-      - PROD
+      - main
   workflow_dispatch:
 
 permissions:
