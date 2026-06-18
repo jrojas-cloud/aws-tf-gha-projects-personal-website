@@ -1,4 +1,5 @@
-nactions/checkout@v7ame: Create an S3 Bucket
+name: Create an S3 Bucket
+
 
 on:
   push:
